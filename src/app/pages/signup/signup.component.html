@@ -1,35 +1,36 @@
 <div class="container pt-5">
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <form (ngSubmit)="signUpFormSubmitHandler()">
+
+      <form [formGroup]="signUpForm" (ngSubmit)="signUpFormSubmitHandler()">
         <div class="mb-3">
           <label for="userName" class="form-label">User Name</label>
-          <input type="text" name="name" [(ngModel)]="user.name" class="form-control" id="userName" >
+          <input type="text" name="name" formControlName="name" class="form-control" id="userName" >
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email Address</label>
-          <input type="email" name="email" [(ngModel)]="user.email" class="form-control" id="email" >
+          <input type="email" name="email" formControlName="email" class="form-control" id="email" >
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
-          <input type="password" name="password" [(ngModel)]="user.password" class="form-control" id="password">
+          <input type="password" name="password" formControlName="password" class="form-control" id="password">
         </div>
         <div>
           <label  class="form-label me-4">Gender</label>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" [(ngModel)]="user.gender"  id="male" value="male">
+            <input class="form-check-input" type="radio" name="gender" formControlName="gender" id="male" value="male">
             <label class="form-check-label" for="male">Male</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" [(ngModel)]="user.gender" id="female" value="female">
+            <input class="form-check-input" type="radio" name="gender" formControlName="gender" id="female" value="female">
             <label class="form-check-label" for="female">Female</label>
           </div>
         </div>
         <div class="mb-3">
           <label for="exampleFormControlTextarea1" class="form-label">About</label>
-          <textarea class="form-control" name="about" [(ngModel)]="user.about" id="exampleFormControlTextarea1" rows="3"></textarea>
+          <textarea class="form-control" name="about" formControlName="about" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <button type="submit" [disabled]="signUpForm.invalid" class="btn btn-primary">Sign Up</button>
       </form>
     </div>
   </div>
