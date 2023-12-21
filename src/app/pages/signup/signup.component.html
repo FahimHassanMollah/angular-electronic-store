@@ -2,35 +2,93 @@
   <div class="row">
     <div class="col-md-6 offset-md-3">
 
-      <form [formGroup]="signUpForm" (ngSubmit)="signUpFormSubmitHandler()">
+      <form  [formGroup]="signUpForm" (ngSubmit)="signUpFormSubmitHandler()"  >
         <div class="mb-3">
           <label for="userName" class="form-label">User Name</label>
-          <input type="text" name="name" formControlName="name" class="form-control" id="userName" >
+          <input type="text" name="name" autocorrect="off"  formControlName="name" class="form-control" id="userName">
+          @if(name?.invalid && (name?.dirty || name?.touched || isSignUpFormSubmitted)){
+            @if(name?.errors?.['required']){
+            <div class="alert alert-danger" role="alert">
+              User Name is required
+            </div>
+            }
+          }
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email Address</label>
-          <input type="email" name="email" formControlName="email" class="form-control" id="email" >
+          <input type="email" name="email" autocorrect="off"  formControlName="email" class="form-control" id="email">
+          @if(email?.invalid && (email?.dirty || email?.touched || isSignUpFormSubmitted)){
+            @if(email?.errors?.['required']){
+            <div class="alert alert-danger" role="alert">
+              Email is required
+            </div>
+            }
+            @if(email?.errors?.['email']){
+            <div class="alert alert-danger" role="alert">
+              Enter a valid email address
+            </div>
+            }
+          }
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
-          <input type="password" name="password" formControlName="password" class="form-control" id="password">
+          <input type="password" name="password" autocomplete="new-password" formControlName="password" class="form-control" id="password">
+          @if(password?.invalid && (password?.dirty || password?.touched || isSignUpFormSubmitted)){
+            @if(password?.errors?.['required']){
+            <div class="alert alert-danger" role="alert">
+              Password is required
+            </div>
+            }
+            @if(password?.errors?.['minlength']){
+            <div class="alert alert-danger" role="alert">
+              Password must be at least 6 characters
+            </div>
+            }
+          }
         </div>
         <div>
-          <label  class="form-label me-4">Gender</label>
+          <label class="form-label me-4">Gender</label>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" formControlName="gender" id="male" value="male">
+            <input class="form-check-input" type="radio" name="gender" autocorrect="off"  formControlName="gender" id="male" value="male">
             <label class="form-check-label" for="male">Male</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" formControlName="gender" id="female" value="female">
+            <input class="form-check-input" type="radio" name="gender" autocorrect="off"  formControlName="gender" id="female"
+              value="female">
             <label class="form-check-label" for="female">Female</label>
           </div>
+          @if(gender?.invalid && (gender?.dirty || gender?.touched || isSignUpFormSubmitted)){
+            @if(gender?.errors?.['required']){
+            <div class="alert alert-danger" role="alert">
+              Select a gender
+            </div>
+            }
+          }
         </div>
         <div class="mb-3">
           <label for="exampleFormControlTextarea1" class="form-label">About</label>
-          <textarea class="form-control" name="about" formControlName="about" id="exampleFormControlTextarea1" rows="3"></textarea>
+          <textarea class="form-control" name="about" autocorrect="off"  formControlName="about" id="exampleFormControlTextarea1"
+            rows="3"></textarea>
         </div>
-        <button type="submit" [disabled]="signUpForm.invalid" class="btn btn-primary">Sign Up</button>
+        <div class="mb-3">
+          <label for="userName" class="form-label">age</label>
+          <input type="text" name="name" autocorrect="off"  formControlName="age" class="form-control" id="userName">
+          @if(age?.invalid && (age?.dirty || age?.touched || isSignUpFormSubmitted)){
+            @if(age?.errors?.['required']){
+            <div class="alert alert-danger" role="alert">
+              Age is required
+            </div>
+            }
+          }
+          @if(age?.invalid && (age?.dirty || age?.touched || isSignUpFormSubmitted)){
+            @if(age?.errors?.['ageRange']){
+            <div class="alert alert-danger" role="alert">
+              You age must be between 18 and 60
+            </div>
+            }
+          }
+        </div>
+        <button type="submit"  class="btn btn-primary">Sign Up</button>
       </form>
     </div>
   </div>
