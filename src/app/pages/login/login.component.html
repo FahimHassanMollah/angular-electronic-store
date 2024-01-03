@@ -1,0 +1,48 @@
+<div class="container pt-5">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+  
+        <form  [formGroup]="loginForm" (ngSubmit)="loginFormSubmitHandler()"  >
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" name="email" autocorrect="off"  formControlName="email" class="form-control" id="email">
+            @if(email?.invalid && (email?.dirty || email?.touched || isLoginFormSubmitted)){
+              @if(email?.errors?.['required']){
+              <div class="alert alert-danger" role="alert">
+                Email is required
+              </div>
+              }
+              @if(email?.errors?.['email']){
+              <div class="alert alert-danger" role="alert">
+                Enter a valid email address
+              </div>
+              }
+            }
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" autocomplete="new-password" formControlName="password" class="form-control" id="password">
+            @if(password?.invalid && (password?.dirty || password?.touched || isLoginFormSubmitted)){
+              @if(password?.errors?.['required']){
+              <div class="alert alert-danger" role="alert">
+                Password is required
+              </div>
+              }
+              @if(password?.errors?.['minlength']){
+              <div class="alert alert-danger" role="alert">
+                Password must be at least 6 characters
+              </div>
+              }
+              @if(password?.errors?.['password']){
+                <div class="alert alert-danger" role="alert">
+                   {{password?.errors?.['password']}}
+                </div>
+              }
+            }
+          </div>
+          <button type="submit"  class="btn btn-primary">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

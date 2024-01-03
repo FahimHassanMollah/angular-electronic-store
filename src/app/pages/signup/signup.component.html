@@ -12,6 +12,11 @@
               User Name is required
             </div>
             }
+            @if(name?.errors?.['name']){
+              <div class="alert alert-danger" role="alert">
+                 {{name?.errors?.['name']}}
+              </div>
+            }
           }
         </div>
         <div class="mb-3">
@@ -44,6 +49,11 @@
               Password must be at least 6 characters
             </div>
             }
+            @if(password?.errors?.['password']){
+              <div class="alert alert-danger" role="alert">
+                 {{password?.errors?.['password']}}
+              </div>
+            }
           }
         </div>
         <div>
@@ -63,31 +73,31 @@
               Select a gender
             </div>
             }
+            @if(gender?.errors?.['gender']){
+              <div class="alert alert-danger" role="alert">
+                 {{gender?.errors?.['gender']}}
+              </div>
+            }
           }
         </div>
         <div class="mb-3">
           <label for="exampleFormControlTextarea1" class="form-label">About</label>
           <textarea class="form-control" name="about" autocorrect="off"  formControlName="about" id="exampleFormControlTextarea1"
             rows="3"></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="userName" class="form-label">age</label>
-          <input type="text" name="name" autocorrect="off"  formControlName="age" class="form-control" id="userName">
-          @if(age?.invalid && (age?.dirty || age?.touched || isSignUpFormSubmitted)){
-            @if(age?.errors?.['required']){
-            <div class="alert alert-danger" role="alert">
-              Age is required
-            </div>
+            @if(about?.invalid && (about?.dirty || about?.touched || isSignUpFormSubmitted)){
+              @if(about?.errors?.['required']){
+              <div class="alert alert-danger" role="alert">
+                Write something about yourself
+              </div>
+              }
+              @if(about?.errors?.['about']){
+                <div class="alert alert-danger" role="alert">
+                   {{about?.errors?.['about']}}
+                </div>
+              }
             }
-          }
-          @if(age?.invalid && (age?.dirty || age?.touched || isSignUpFormSubmitted)){
-            @if(age?.errors?.['ageRange']){
-            <div class="alert alert-danger" role="alert">
-              You age must be between 18 and 60
-            </div>
-            }
-          }
         </div>
+       
         <button type="submit"  class="btn btn-primary">Sign Up</button>
       </form>
     </div>

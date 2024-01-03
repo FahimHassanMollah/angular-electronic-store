@@ -5,11 +5,19 @@ import { routes } from './app.routes';
 
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { provideHttpClient } from '@angular/common/http';
+import { provideStore } from '@ngrx/store';
+import { loginReducer } from './store/reducers/login.reducer';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { rootReducer } from './store/reducers/index.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideAnimations(), // required animations providers
-    provideToastr(), // Toastr providers
-  ]
+    provideAnimations(),
+    provideToastr(),
+    provideHttpClient(),
+    provideStore(rootReducer),
+    provideStoreDevtools(),
+]
 };
