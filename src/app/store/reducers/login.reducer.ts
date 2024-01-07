@@ -15,5 +15,8 @@ export const initialState: LoginResponse  = {
 
 export const loginReducer = createReducer(
   initialState,
-  on(LoginAcion.loginSuccess, (state,payload) => ({...state, ...payload})),
+  on(LoginAcion.loginSuccess, (state,payload) => {
+    localStorage.setItem('user',JSON.stringify(payload));
+    return {...state, ...payload};
+  }),
 );

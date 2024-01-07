@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../../services/user/user.service';
 import { ErrorHandlerService } from '../../services/errorHandler/error-handler.service';
 import { LoginService } from '../../services/login/login.service';
 import { Store } from '@ngrx/store';
@@ -9,6 +8,9 @@ import { AppState } from '../../store/reducers/index.reducer';
 import * as LoginActions from '../../store/actions/login.action';
 import { LoginResponse } from '../../models/login.model';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-login',
@@ -19,8 +21,9 @@ import { Observable } from 'rxjs';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-  isLoginFormSubmitted = false;
+  isLoginFormSubmitted = false; 
 
+  private router: Router = inject(Router);
   private store : Store<AppState> = inject(Store);
   private fb: FormBuilder = inject(FormBuilder);
   private toastr: ToastrService = inject(ToastrService);
@@ -49,18 +52,21 @@ export class LoginComponent {
   }
   loginFormSubmitHandler() : void {
     this.isLoginFormSubmitted = true;
-    this.loginService.loginUser(this.loginForm.value).subscribe({
-      next: (res) => {
-        console.log('res', res);
-        this.store.dispatch(LoginActions.loginSuccess(res));
-        this.loginForm.reset();
-        this.isLoginFormSubmitted = false;
-        this.toastr.success("Logged In successfully");
-      },
-      error: (error) => {
-        this.errorHandlerService.setFormValidationErrorMessages(this.loginForm, error?.error);
-        this.toastr.error("Something went wrong");
-      }
-    });
+    this.store.dispatch(LoginActions.login(this.loginForm.value));
+
+    // this.loginService.loginUser(this.loginForm.value).subscribe({
+    //   next: (res) => {
+    //     console.log('res', res);
+    //     this.store.dispatch(LoginActions.loginSuccess(res));
+    //     this.loginForm.reset();
+    //     this.isLoginFormSubmitted = false;
+    //     this.toastr.success("Logged In successfully");
+    //     this.router.navigate(['/home']);
+    //   },
+    //   error: (error) => {
+    //     this.errorHandlerService.setFormValidationErrorMessages(this.loginForm, error?.error);
+    //     this.toastr.error("Something went wrong");
+    //   }
+    // });
   }
 }

@@ -1,3 +1,6 @@
+@if ( isLoading$ | async) {
+    <app-loader></app-loader>
+}
 <app-navbar />
 <router-outlet></router-outlet>
 
